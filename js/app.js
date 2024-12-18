@@ -27,11 +27,6 @@ Provide a Reset Game button that will clear the contents of the board.
 
 /*-------------------------------- Constants --------------------------------*/
 
-const squareEls = document.querySelectorAll('.sqr');
-const messageEl = document.getElementById('message');
-console.log(squareEls);
-console.log(messageEl);
-
 const winningCombos = [
     [0, 1, 2], // top row
     [3, 4, 5], // middle row
@@ -52,7 +47,11 @@ let tie;
 
 /*------------------------ Cached Element References ------------------------*/
 
-
+const squareEls = document.querySelectorAll('.sqr');
+const messageEl = document.getElementById('message');
+console.log(squareEls);
+console.log(messageEl);
+const resetBtnEl = document.getElementById('reset');
 
 /*-------------------------------- Functions --------------------------------*/
 
@@ -71,10 +70,13 @@ function handleClick(event) {
     if (board[squareIndex] !== '' || winner) {
         return;
     }
-    board[squareIndex] = turn; //!!check later
+    //board[squareIndex]
     placePiece(squareIndex);
     checkForWinner();
     console.log(`Winner status: S{winner}`); //test log winner stat
+    checkForTie();
+    switchPlayerTurn();
+    render();
 }
 
 function placePiece(index) {
@@ -146,3 +148,4 @@ squareEls.forEach(square => {
     square.addEventListener('click', handleClick);
 });
 
+resetBtnEl.addEventListener('click', init);
